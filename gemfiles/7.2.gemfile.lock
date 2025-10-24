@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    active_record_distinct_on (1.7.0)
+    active_record_distinct_on (1.8.0)
       activerecord (>= 6.1)
 
 GEM
@@ -87,7 +87,7 @@ DEPENDENCIES
   rake (>= 12.3.3)
   rspec
   simplecov
-  sqlite3 (~> 1.4)
+  sqlite3
 
 BUNDLED WITH
    2.5.19
