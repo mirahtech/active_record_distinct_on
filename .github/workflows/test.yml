@@ -55,13 +55,6 @@ jobs:
         run: |
           bundle check || bundle install --jobs 4 --retry 3
 
-      - name: Prepare Code Climate Test Reporter
-        uses: aktions/codeclimate-test-reporter@v1
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        with:
-          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
-          command: before-build
-
       - name: Run Test Suite (sqlite)
         env:
           BUNDLE_GEMFILE: gemfiles/${{ matrix.rails }}.gemfile
@@ -74,10 +67,3 @@ jobs:
         run: |
           PGPASSWORD=password psql -h localhost -U postgres -c 'create database active_record_distinct_on_test;'
           DATABASE_URL='postgresql://postgres:password@localhost/active_record_distinct_on_test' bundle exec rake
-
-      - name: Upload Coverage Report
-        uses: aktions/codeclimate-test-reporter@v1
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        with:
-          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
-          command: after-build
